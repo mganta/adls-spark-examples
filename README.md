@@ -3,7 +3,7 @@ A spark program to read and write from ADLS
 
 Here is how you can use livy to submit jobs to process data from ADLS
 
-The flow is
+The flow is:
 
 spark job via rest api --> livy --> spark-dispatcher --> mesos --> spark job (read/write from adls)
 
