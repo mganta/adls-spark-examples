@@ -3,8 +3,14 @@ import org.apache.spark.sql.SparkSession
 
 object TestHiveTable {
   def main(args: Array[String]): Unit = {
+    
+    if (args.length != 3) 
+      System.exit(1)
+      
+      val credential = args(0)
+      val clientId = args(1)
+      val refreshUrl = args(2)
 
-    //fill with real values
     val spark = SparkSession
       .builder()
       .appName("Spark Hive ADLS Example")
@@ -13,9 +19,9 @@ object TestHiveTable {
       .config("spark.hadoop.fs.AbstractFileSystem.adl.impl","org.apache.hadoop.fs.adl.Adl")
       .config("spark.mesos.executor.docker.forcePullImage", "true")
       .config("spark.hadoop.dfs.adls.oauth2.access.token.provider.type", "ClientCredential")
-      .config("spark.hadoop.dfs.adls.oauth2.credential", "afdfK")
-      .config("spark.hadoop.dfs.adls.oauth2.client.id", "15643201-asdf23412")
-      .config("spark.hadoop.dfs.adls.oauth2.refresh.url", "https://login.microsoftonline.com/72f9523df222554/oauth2/token") 
+      .config("spark.hadoop.dfs.adls.oauth2.credential", credential)
+      .config("spark.hadoop.dfs.adls.oauth2.client.id", clientId)
+      .config("spark.hadoop.dfs.adls.oauth2.refresh.url", refreshUrl) 
       .enableHiveSupport()
       .getOrCreate()
 
